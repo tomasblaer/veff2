@@ -20,7 +20,6 @@ async function generate() {
   await createDirIfNotExists(OUTPUT_DIR);
 
   Object.keys(OUTPUT_FILES).forEach(title => {
-    console.log(title, OUTPUT_FILES[title]);
     writeFile(
       join(OUTPUT_DIR, title), generateBoilerplate(title, OUTPUT_FILES[title], gamedayData)
       );

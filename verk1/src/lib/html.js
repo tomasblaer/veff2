@@ -55,7 +55,6 @@ export function generateLeikir(data) {
 
 async function stoduTable(data) {
   const res = await parseGamedays(data);
-  console.log(res);
   return '<p>Todo</p>'
 }
 
