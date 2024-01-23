@@ -19,9 +19,10 @@ async function generate() {
   const gamedayData = await readFilesFromDir(INPUT_DIR);
   await createDirIfNotExists(OUTPUT_DIR);
 
-  Object.keys(OUTPUT_FILES).forEach(title => {
+  Object.keys(OUTPUT_FILES).forEach(async title => {
+    const boiler = await generateBoilerplate(title, OUTPUT_FILES[title], gamedayData);
     writeFile(
-      join(OUTPUT_DIR, title), generateBoilerplate(title, OUTPUT_FILES[title], gamedayData)
+      join(OUTPUT_DIR, title), boiler
       );
   });
 }
