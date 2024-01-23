@@ -8,8 +8,8 @@ export async function generateBoilerplate(title, callbackFunction, data) {
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/x-icon" href="./public/images/football.png">
       <title>${title}</title>
-      <script type="module" src="./public/scripts.js"></script>
       <link rel="stylesheet" href="./public/styles.css" />
     </head>
   </html>
@@ -40,6 +40,7 @@ export async function generateBoilerplate(title, callbackFunction, data) {
       </div>
       ${callbackFunction.name !== 'generateIndex' ? await callbackFunction(data) : await callbackFunction()}
     </main>
+    <script type="module" src="./public/scripts.js"></script>
   </body>
 `;
 }
@@ -56,6 +57,7 @@ export function generateIndex() {
         Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce congue consectetur ligula, quis mollis ipsum vestibulum quis.
         In bibendum metus at ante vehicula finibus. Vivamus feugiat convallis quam id ornare. Nullam consequat arcu eu justo elementum sodales. Integer ex elit,
         ultrices a nisi eu, dictum vehicula turpis. Sed id laoreet dui.</p>
+        <img class="secret" src="./public/football.png" alt="Smiley playing football" />
       </div>`;
 }
 
@@ -123,8 +125,6 @@ export async function generateLeikir(data) {
 }
 
 function reiknaStodu(game, stada, additionalData) {
-  console.log(game);
-  console.log('pre', additionalData);
   additionalData[game.home.name].mp += 1;
   additionalData[game.away.name].mp += 1;
   additionalData[game.home.name].gf += game.home.score;
@@ -145,7 +145,6 @@ function reiknaStodu(game, stada, additionalData) {
     additionalData[game.home.name].d += 1;
     additionalData[game.away.name].d += 1;
   }
-  console.log('post', additionalData);
 }
 
 async function stoduTable(data) {
