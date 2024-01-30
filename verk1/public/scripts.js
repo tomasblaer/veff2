@@ -7,7 +7,7 @@ function main() {
     secret[0].addEventListener('click', () => {
       clickCount += 1;
       if (clickCount === 3) {
-        secret[0].src='./public/mrfresh.png';
+        secret[0].src='./public/images/mrfresh.png';
       }
       if (clickCount === 6)
         window.location.href = 'https://github.com/tomasblaer';

@@ -56,11 +56,11 @@ export function generateIndex() {
         Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce congue consectetur ligula, quis mollis ipsum vestibulum quis.
         In bibendum metus at ante vehicula finibus. Vivamus feugiat convallis quam id ornare. Nullam consequat arcu eu justo elementum sodales. Integer ex elit,
         ultrices a nisi eu, dictum vehicula turpis. Sed id laoreet dui.</p>
-        <img class="secret" src="./public/football.png" alt="Smiley playing football" />
+        <img class="secret" src="./public/images/football.png" alt="Smiley playing football" />
       </div>`;
 }
 
-function getGameForDate(date, data) {
+export function getGameForDate(date, data) {
   let gameForDate = null;
   Object.keys(data).forEach((gameKey) => {
     const game = data[gameKey];

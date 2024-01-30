@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { readFile } from './file.js';
 
-function teamsIsValid(validTeams, gameday) {
+export function teamsIsValid(validTeams, gameday) {
 
   Object.keys(gameday.games).forEach((gameKey) => {
     if (!validTeams.includes(gameday.games[gameKey].home.name) ||
@@ -13,7 +13,7 @@ function teamsIsValid(validTeams, gameday) {
   return gameday;
 }
 
-function isValid(data) {
+export function isValid(data) {
   return data !== null && Object.prototype.hasOwnProperty.call(data, 'date') &&
    Object.prototype.hasOwnProperty.call(data, 'games') && Array.isArray(data.games) &&
    data.games.length > 0 && moment(data.date).isValid();
