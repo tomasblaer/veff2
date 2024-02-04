@@ -1,0 +1,14 @@
+<div class="games">
+  <% Object.keys(locals.games).forEach((date) => { %>
+    <div class="gameday">
+      <div class="game-date-cell">
+        <h2><%= date %></h2>
+      </div>
+      <% locals.games[date].forEach((game) => { %>
+        <div class="game-cell">
+            <p><%= game.home %> <%= game.home_score %>-<%= game.away_score %> <%= game.away %></p>
+        </div>
+      <% }); %>
+    </div>
+  <% }); %>
+</div>

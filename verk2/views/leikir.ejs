@@ -1,8 +1,5 @@
 <%- include('header') -%>
 
-<% // Mock, en svona er greinilega hægt að ejs-a þetta %>
-<% locals.games.forEach((game) => { %>
-  <p><%= game.home.name %> vs <%= game.away.name %></p>
-<% }) %>
+<%- include('gametable') -%>
 
 <%- include('footer') -%>

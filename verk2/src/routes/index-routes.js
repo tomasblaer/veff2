@@ -1,49 +1,7 @@
 import express from 'express';
+import { getGames, getStanding } from '../lib/db.js';
 
 export const indexRouter = express.Router();
-
-// Mock data
-const games = [
-  {
-    'home': {
-      'name': 'Sigurliðið',
-      'score': 2
-    },
-    'away': {
-      'name': 'Framherjarnir',
-      'score': 3
-    }
-  },
-  {
-    'home': {
-      'name': 'Vinningshópurinn',
-      'score': 5
-    },
-    'away': {
-      'name': 'Risaeðlurnar',
-      'score': 1
-    }
-  },
-  {
-    'home': {
-      'name': 'Boltaliðið',
-      'score': 5
-    },
-    'away': {
-      'name': 'Dripplararnir',
-      'score': 2
-    }
-  },
-  {
-    'home': {
-      'name': 'Fljótu fæturnir',
-      'score': 3
-    },
-    'away': {
-      'name': 'Hraðaliðið',
-      'score': 3
-    }
-  }];
 
 async function indexRoute(req, res) {
   return res.render('index', {
@@ -53,18 +11,20 @@ async function indexRoute(req, res) {
 }
 
 async function leikirRoute(req, res) {
-  // Todo: pgsql get
+  const games = await getGames(true);
   return res.render('leikir', {
     title: 'Leikir',
     time: new Date().toISOString(),
-    games
+    games,
   });
 }
 
 async function stadaRoute(req, res) {
+  const standing = await getStanding();
   return res.render('stada', {
     title: 'Staðan',
     time: new Date().toISOString(),
+    standing,
   });
 }
 

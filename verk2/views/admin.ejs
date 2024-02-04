@@ -1,5 +1,57 @@
 <%- include('header') -%>
 
 admin!
+<div class="admin-panel">
+  <%- include('gametable') -%>
+  <div class="admin-form">
+    <h2>Skrá Nýjan leik</h2>
+    <form action="/admin" method="post" id="adminForm">
+      <% const today = new Date().toISOString().split('T')[0]; %>
+      <label for="date">Dagsetning</label>
+      <input type="date" name="date" placeholder="Dagsetning" value="<%= today %>" required>
+      <label for="home">Heimalið</label>
+      <select name="home" required>
+          <option disabled selected value></option>
+        <% locals.teams.forEach((team) => { %>
+          <option value="<%= team.id %>"><%= team.name %></option>
+        <% }); %>
+      </select required>
+      <label for="away">Útilið</label>
+      <select name="away" required>
+          <option disabled selected value></option>
+        <% locals.teams.forEach((team) => { %>
+          <option value="<%= team.id %>"><%= team.name %></option>
+        <% }); %>
+      </select required>
+      <label for="home_score">Stig Heimaliðs</label>
+      <input type="number" name="home_score" min="0" required>
+      <label for="away_score">Stig Útiliðs</label>
+      <input type="number" name="away_score" min="0" required>
+      <input type="submit" value="Skrá leik">
+    </form>
+  </div>
+</div>
+<script>
+  // TODO finna utur þessu eða öðru handling a html form submit response handling
+  document.forms['adminForm'].addEventListener('submit', (event) => {
+      console.log(event);
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+          method: 'POST',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json(); // or response.text() or whatever the server sends
+      }).then((body) => {
+          console.log(body);
+      }).catch((error) => {
+          console.log(error);
+      });
+  });
+</script>
+
 
 <%- include('footer') -%>

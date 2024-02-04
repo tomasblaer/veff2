@@ -2,4 +2,37 @@
 
 <h1>Staðan í deildinni</h1>
 
+<div class="standings">
+  <table>
+    <thead>
+      <tr>
+        <th>Lið</th>
+        <th>Stig</th>
+        <th>MP</th>
+        <th>W</th>
+        <th>D</th>
+        <th>L</th>
+        <th>GF</th>
+        <th>GA</th>
+        <th>GD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% locals.standing.forEach((team) => { %>
+        <tr>
+          <td><%= team.name %></td>
+          <td><%= team.points %></td>
+          <td><%= team.games %></td>
+          <td><%= team.wins %></td>
+          <td><%= team.draws %></td>
+          <td><%= team.losses %></td>
+          <td><%= team.goals_for %></td>
+          <td><%= team.goals_against %></td>
+          <td><%= team.goal_difference %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
 <%- include('footer') -%>

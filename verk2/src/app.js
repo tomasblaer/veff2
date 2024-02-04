@@ -10,6 +10,7 @@ import { logger } from './lib/logger.js';
 import { adminRouter } from './routes/admin-routes.js';
 import { indexRouter } from './routes/index-routes.js';
 
+
 import { comparePasswords, findById, findByUsername } from './lib/users.js';
 
 const env = environment(process.env, logger);
