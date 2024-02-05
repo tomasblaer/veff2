@@ -48,10 +48,3 @@ th, td {
     }
   }
 }
-
-@media (width <= 800px) {
-  .admin-panel > div {
-    flex: 0 0 1;
-  }
-}
-
