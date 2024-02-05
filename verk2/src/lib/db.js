@@ -25,7 +25,7 @@ export async function query(q, values = []) {
 
 export async function getGames(groupByDate = false) {
   const sql = `SELECT
-   date, home_score, away_score, t1.name as home, t2.name as away
+   games.id, date, home_score, away_score, t1.name as home, t2.name as away
   FROM
     games
   LEFT JOIN teams t1 ON t1.id = home
@@ -75,6 +75,22 @@ export async function getStanding() {
   const result = await query(sql);
 
   return result ? result.rows : null;
+}
+
+export async function insertGame(game) {
+  const sql = `INSERT INTO
+    games(date, home, away, home_score, away_score)
+    VALUES ($1, $2, $3, $4, $5)`;
+  const result = await query(sql, game);
+
+  return result;
+}
+
+export async function deleteGame(id) {
+  const sql = 'DELETE FROM games WHERE id = $1';
+  const result = await query(sql, [id]);
+
+  return result;
 }
 
 

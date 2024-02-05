@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
-import moment from 'moment';
-import { getGames, getTeams } from '../lib/db.js';
+import { getGames, getTeams, insertGame, deleteGame } from '../lib/db.js';
+import { validateGame } from '../lib/validation.js';
 
 export const adminRouter = express.Router();
 
@@ -29,14 +29,35 @@ async function adminRoute(req, res) {
 
 async function registerGame(req, res) {
   // eslint-disable-next-line no-unused-vars, camelcase
-  const { date, home, away, home_score, away_score } = req.body;
-  if (
-    !moment(date).isValid() ||
-    moment(date).isBefore(moment().subtract(2,'months')) ||
-    moment(date).isAfter(moment())) {
-    return res.status(400).send('Dagsetning fyrir leik er ekki á réttu sniði');
+  const gameIsValid = await validateGame(req.body);
+  if (gameIsValid.length > 0) {
+    return res.status(400).send(gameIsValid.join(', '));
   }
-  return res.send('Leikur skráður');
+
+  try {
+    /* eslint-disable camelcase */
+    const { date, home, away, home_score, away_score } = req.body;
+    await insertGame([date, home, away, home_score, away_score]);
+
+  } catch (error) {
+    return res.status(500).send('Villa við að skrá leik');
+  }
+
+  return res.redirect('/admin');
+}
+
+/*
+  Ekki delete mapping þvi eg notaði
+  venjulegt HTML form í kallið
+*/
+async function removeGame(req, res) {
+  const { id } = req.query;
+  try {
+    await deleteGame(id);
+    return res.redirect('/admin');
+  } catch (error) {
+    return res.status(500).send('Villa við að eyða leik');
+  }
 }
 
 // TODO færa á betri stað
@@ -53,6 +74,7 @@ function ensureLoggedIn(req, res, next) {
 adminRouter.get('/login', indexRoute);
 adminRouter.get('/admin', ensureLoggedIn, adminRoute);
 adminRouter.post('/admin', ensureLoggedIn, registerGame);
+adminRouter.post('/remove', ensureLoggedIn, removeGame);
 adminRouter.post(
   '/login',
 

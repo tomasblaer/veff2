@@ -4,7 +4,7 @@ import postgres from 'postgres';
 
 /* eslint no-unused-vars: 0 */
 
-const dataFolder = './data'
+const dataFolder = './../../data'
 
 function teamsIsValid(validTeams, gameday) {
   validTeams = JSON.parse(validTeams);
@@ -72,33 +72,33 @@ async function createInserts() {
     }
   });
   console.info(`Total games: ${count[0]}, valid games: ${count[1]}`);
-  await writeFile('./sql/teams.sql', teamInserts.join('\n'));
-  await writeFile('./sql/games.sql', gameInserts.join('\n'));
+  await writeFile('./../teams.sql', teamInserts.join('\n'));
+  await writeFile('./../games.sql', gameInserts.join('\n'));
 }
 
 async function createTables(sqlConn) {
-  const res = await sqlConn.file('./sql/tables.sql');
+  const res = await sqlConn.file('./../tables.sql');
   return res;
 }
 
 async function insertTeams(sqlConn) {
-  const res = await sqlConn.file('./sql/teams.sql');
+  const res = await sqlConn.file('./../teams.sql');
   return res;
 }
 
 async function insertGames(sqlConn) {
-  const res = await sqlConn.file('./sql/games.sql');
+  const res = await sqlConn.file('./../games.sql');
   return res;
 }
 
 async function main() {
   // Nota 2 postgres pakka þvi þessi getur keyrt .sql skrár :)
-  // const sqlConn = postgres('postgres_url_here');
-  // await createInserts();
-  // await createTables(sqlConn);
-  // await insertTeams(sqlConn);
-  // await insertGames(sqlConn);
-  // await sqlConn.end();
+  const sqlConn = postgres('postgresql://postgres:postgres@localhost:5432/postgres');
+  await createInserts();
+  await createTables(sqlConn);
+  await insertTeams(sqlConn);
+  await insertGames(sqlConn);
+  await sqlConn.end();
 }
 
 await main();

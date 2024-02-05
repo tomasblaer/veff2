@@ -6,9 +6,28 @@
       </div>
       <% locals.games[date].forEach((game) => { %>
         <div class="game-cell">
+          <% if (locals.title !== 'Leikir') { %>
+            <form method="post" action="/remove?id=<%= game.id %>" id='<%= game.id %>'></form>
+            <a id="<%= game.id %>">X</a>
+          <% } %>
             <p><%= game.home %> <%= game.home_score %>-<%= game.away_score %> <%= game.away %></p>
         </div>
       <% }); %>
     </div>
   <% }); %>
 </div>
+<script>
+  const deleteElems = document.getElementsByClassName('games')[0].getElementsByTagName('a');
+  console.log(deleteElems);
+  for (let i = 0; i < deleteElems.length; i++) {
+    deleteElems[i].onclick = function() {
+      var check = confirm("Are you sure you want to delete this game?");
+      if (check == true) {
+        return document.getElementById(deleteElems[i].id).submit();
+      }
+      else {
+        return null;
+      }
+    }
+  }
+</script>

@@ -11,19 +11,47 @@ th, td {
 .admin-panel {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
+  .games {
+    width: 65vw;
+    display: flex;
+    flex-wrap: wrap;
+
+    > div {
+      flex: 0 0 33.3333%;
+    }
+  }
 
   input[type="number"] {
     width: 2rem;
   }
 
-  label {
+  label, input {
     display: block;
     margin: 0.5rem 0;
   }
 
-  input {
-    display: block;
-    margin: 0.5rem 0;
-  }
+  .game-cell {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
+    > a {
+      height: fit-content;
+      margin-right: 1rem;
+      font-weight: bold;
+    }
+
+    > a:hover {
+      cursor: pointer;
+    }
+  }
 }
+
+@media (width <= 800px) {
+  .admin-panel > div {
+    flex: 0 0 1;
+  }
+}
+
