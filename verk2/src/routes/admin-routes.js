@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import { getGames, getTeams, insertGame, deleteGame } from '../lib/db.js';
-import { validateGame } from '../lib/validation.js';
+import bcrypt from 'bcrypt';
+import { getGames, getTeams, insertGame, deleteGame, insertUser } from '../lib/db.js';
+import { validateGame, validateUser } from '../lib/validation.js';
 
 export const adminRouter = express.Router();
 
@@ -60,6 +61,23 @@ async function removeGame(req, res) {
   }
 }
 
+/* Gef mér að allir users séu admins */
+async function createUser(req, res) {
+  const { username, password } = req.body;
+  const userIsValid = await validateUser(username, password);
+  if (userIsValid.length > 0) {
+    return res.status(400).send(userIsValid.join(', '));
+  }
+
+  try {
+    const encryptedPassword = await bcrypt.hash(password, 12);
+    await insertUser(username, encryptedPassword);
+  } catch (error) {
+    return res.status(500).send('Villa við að búa til notanda');
+  }
+  return res.redirect('/admin');
+}
+
 // TODO færa á betri stað
 // Hjálpar middleware sem athugar hvort notandi sé innskráður og hleypir okkur
 // þá áfram, annars sendir á /login
@@ -75,6 +93,7 @@ adminRouter.get('/login', indexRoute);
 adminRouter.get('/admin', ensureLoggedIn, adminRoute);
 adminRouter.post('/admin', ensureLoggedIn, registerGame);
 adminRouter.post('/remove', ensureLoggedIn, removeGame);
+adminRouter.post('/user', ensureLoggedIn, createUser);
 adminRouter.post(
   '/login',
 

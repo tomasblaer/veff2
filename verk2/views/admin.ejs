@@ -3,33 +3,46 @@
 admin!
 <div class="admin-panel">
   <%- include('gametable') -%>
-  <div class="admin-form">
-    <h2>Skrá Nýjan leik</h2>
-    <form action="/admin" method="post" id="adminForm">
-      <% const today = new Date().toISOString().split('T')[0]; %>
-      <label for="date">Dagsetning</label>
-      <input type="date" name="date" placeholder="Dagsetning" value="<%= today %>" required>
-      <label for="home">Heimalið</label>
-      <select name="home" required>
-          <option disabled selected value></option>
-        <% locals.teams.forEach((team) => { %>
-          <option value="<%= team.id %>"><%= team.name %></option>
-        <% }); %>
-      </select required>
-      <label for="away">Útilið</label>
-      <select name="away" required>
-          <option disabled selected value></option>
-        <% locals.teams.forEach((team) => { %>
-          <option value="<%= team.id %>"><%= team.name %></option>
-        <% }); %>
-      </select required>
-      <label for="home_score">Stig Heimaliðs</label>
-      <input type="number" name="home_score" min="0" required>
-      <label for="away_score">Stig Útiliðs</label>
-      <input type="number" name="away_score" min="0" required>
-      <input type="submit" value="Skrá leik">
-    </form>
-    <div id="status" style="display: none;"></div>
+  <div class="forms">
+    <div class="admin-form">
+      <h2>Skrá Nýjan leik</h2>
+      <form action="/admin" method="post" id="adminForm">
+        <% const today = new Date().toISOString().split('T')[0]; %>
+        <label for="date">Dagsetning</label>
+        <input type="date" name="date" placeholder="Dagsetning" value="<%= today %>" required>
+        <label for="home">Heimalið</label>
+        <select name="home" required>
+            <option disabled selected value></option>
+          <% locals.teams.forEach((team) => { %>
+            <option value="<%= team.id %>"><%= team.name %></option>
+          <% }); %>
+        </select required>
+        <label for="away">Útilið</label>
+        <select name="away" required>
+            <option disabled selected value></option>
+          <% locals.teams.forEach((team) => { %>
+            <option value="<%= team.id %>"><%= team.name %></option>
+          <% }); %>
+        </select required>
+        <label for="home_score">Stig Heimaliðs</label>
+        <input type="number" name="home_score" min="0" step="1" required>
+        <label for="away_score">Stig Útiliðs</label>
+        <input type="number" name="away_score" min="0" step="1" required>
+        <input type="submit" value="Skrá leik">
+      </form>
+      <div id="status" style="display: none;"></div>
+    </div>
+    <div class="userform">
+      <h2>Skrá Nýjan notanda</h2>
+      <form action="/user" method="post" id="userForm">
+        <label for="username">Notendanafn</label>
+        <input type="text" name="username" required>
+        <label for="password">Lykilorð</label>
+        <input type="password" name="password" required>
+        <input type="submit" value="Skrá notanda">
+      </form>
+      <div id="status" style="display: none;"></div>
+    </div>
   </div>
 </div>
 <script>

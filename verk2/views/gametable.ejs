@@ -18,7 +18,6 @@
 </div>
 <script>
   const deleteElems = document.getElementsByClassName('games')[0].getElementsByTagName('a');
-  console.log(deleteElems);
   for (let i = 0; i < deleteElems.length; i++) {
     deleteElems[i].onclick = function() {
       var check = confirm("Are you sure you want to delete this game?");

@@ -93,12 +93,12 @@ async function insertGames(sqlConn) {
 
 async function main() {
   // Nota 2 postgres pakka þvi þessi getur keyrt .sql skrár :)
-  const sqlConn = postgres('postgresql://postgres:postgres@localhost:5432/postgres');
-  await createInserts();
-  await createTables(sqlConn);
-  await insertTeams(sqlConn);
-  await insertGames(sqlConn);
-  await sqlConn.end();
+  // const sqlConn = postgres('postgresql://postgres:postgres@localhost:5432/postgres');
+  // await createInserts();
+  // await createTables(sqlConn);
+  // await insertTeams(sqlConn);
+  // await insertGames(sqlConn);
+  // await sqlConn.end();
 }
 
 await main();
