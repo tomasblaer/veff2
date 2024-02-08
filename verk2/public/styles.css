@@ -1,12 +1,106 @@
-html {
+/* Common */
+
+html, body {
   padding: 0;
   margin: 0;
   background-color: #f5f5f5;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+}
+
 th, td {
   padding: 0.5rem;
 }
+
+/* Header */
+
+header {
+  nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    > * {
+      padding: 0 0.5rem;
+    }
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+
+    > * {
+      list-style: none;
+      justify-content: center;
+    }
+  }
+
+  ul li:nth-child(1) a {
+    text-decoration: none;
+  }
+
+  .user {
+    p {
+      text-align: right;
+    }
+
+    a {
+      color: black;
+      display: block;
+      text-align: right;
+      font-weight: bold;
+    }
+  }
+}
+
+/* Footer */
+
+footer {
+  margin-top: auto;
+  text-align: center;
+}
+
+/* Leikir */
+
+.games {
+  width: 65vw;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
+  > div {
+    flex: 0 0 33.3333%;
+  }
+}
+
+/* Staða */
+
+.standings {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Admin Page */
 
 .admin-panel {
   display: flex;
@@ -46,5 +140,13 @@ th, td {
     > a:hover {
       cursor: pointer;
     }
+  }
+
+  .admin-form, .user-form {
+    max-width: 13.5rem;
+  }
+
+  #status {
+    text-wrap: wrap;
   }
 }

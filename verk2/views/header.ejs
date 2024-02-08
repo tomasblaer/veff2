@@ -9,17 +9,29 @@
 
 <body>
   <main>
+    <header>
 
-    <h1><%= locals.title ?? '' %></h1>
+      <nav>
+        <ul>
+          <li><a href="/">FootyTracker ⚽</a></li>
+          <li><a href="/leikir">Leikir</a></li>
+          <li><a href="/stada">Staða</a></li>
+        <% if (locals.loggedIn) {%>
+          <li><a href="/admin">Umsjón</a></li>
+        <% } %>
+        </ul>
 
-    <% if (locals.loggedIn) { %>
-      <p>Innskráður notandi: <%= locals.user.name %> (<%= locals.user.username %>)
-    <% } else { %>
-      <p>Þú ert ekki innskráður notandi.</p>
-    <% } %>
+        <div class="user">
+        <% if (locals.loggedIn) { %>
+            <p>Innskráður notandi: <%= locals.user.username %> </p>
+            <a href="/logout">Útskrá</a>
+        <% } else { %>
+          <p>Þú ert ekki innskráður notandi.</p>
+          <a href="/login">Innskrá</a>
+        <% } %>
+        </div>
+      </nav>
 
-    <ul>
-      <li><a href="/">Forsíða</a></li>
-      <li><a href="/leikir">Leikir</a></li>
-      <li><a href="/stada">Staða</a></li>
-    </ul>
+      <h1><%= locals.title ?? '' %></h1>
+
+    </header>

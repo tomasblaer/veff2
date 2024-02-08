@@ -49,7 +49,7 @@ export async function validateUser(username, password) {
   const errors = [];
   const found = await findByUsername(username);
   if (found) {
-    errors.push('Notendanafn er ekki í boði');
+    errors.push('Notendanafn er í notkun');
   }
   if (username.length < 3) {
     errors.push('Notendanafn verður að vera að minnsta kosti 3 stafir');

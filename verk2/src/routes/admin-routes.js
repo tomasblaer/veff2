@@ -9,6 +9,7 @@ export const adminRouter = express.Router();
 async function indexRoute(req, res) {
   return res.render('login', {
     title: 'Innskráning',
+    time: new Date().toISOString(),
   });
 }
 
@@ -61,7 +62,10 @@ async function removeGame(req, res) {
   }
 }
 
-/* Gef mér að allir users séu admins */
+/*
+  Gef mér að allir users séu admins þvi að
+  schemainu er lyst með engu isAdmin columni
+*/
 async function createUser(req, res) {
   const { username, password } = req.body;
   const userIsValid = await validateUser(username, password);
@@ -75,7 +79,7 @@ async function createUser(req, res) {
   } catch (error) {
     return res.status(500).send('Villa við að búa til notanda');
   }
-  return res.redirect('/admin');
+  return res.status(201).send('Notandi vistaður');
 }
 
 // TODO færa á betri stað
@@ -108,3 +112,12 @@ adminRouter.post(
     res.redirect('/admin');
   },
 );
+
+adminRouter.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+});
