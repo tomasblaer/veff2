@@ -54,10 +54,6 @@ header {
     }
   }
 
-  ul li:nth-child(1) a {
-    text-decoration: none;
-  }
-
   .user {
     p {
       text-align: right;
@@ -70,6 +66,11 @@ header {
       font-weight: bold;
     }
   }
+
+  ul li:nth-child(1) a {
+    text-decoration: none;
+  }
+
 }
 
 /* Footer */
