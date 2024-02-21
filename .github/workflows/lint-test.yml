@@ -9,6 +9,8 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ['verk1', 'verk2'] }
     steps:
       - uses: actions/checkout@v3
 
@@ -17,12 +19,18 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
+        working-directory: ${{ matrix.dir }}
         run: yarn install
 
+
       - name: Lint
+        working-directory: ${{ matrix.dir }}
         run: yarn lint
+
 
       - name: Test
         # Run this even if linting failed
         if: always()
+        working-directory: ${{ matrix.dir }}
         run: yarn test
+
