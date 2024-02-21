@@ -26,8 +26,8 @@ th, td {
 
 header {
   nav {
-    position: -webkit-sticky;
-    position: sticky;
+    position: fixed;
+    backdrop-filter: blur(10px);
     top: 0;
     display: flex;
     justify-content: space-between;
@@ -35,11 +35,13 @@ header {
 
     > * {
       padding: 0 0.5rem;
+      margin: auto 0;
     }
   }
 
   h1 {
     text-align: center;
+    margin-top: 5rem;
   }
 
   ul {
@@ -67,10 +69,18 @@ header {
     }
   }
 
-  ul li:nth-child(1) a {
-    text-decoration: none;
-  }
+  ul li:nth-child(1) {
+    display: flex;
 
+    ::after {
+      font-size: 13px;
+      content: "⚽"
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 /* Footer */
@@ -79,6 +89,13 @@ footer {
   margin-top: auto;
   text-align: center;
 }
+
+/* index */
+
+.content {
+  text-align: center;
+}
+
 
 /* Leikir */
 
@@ -99,6 +116,24 @@ footer {
   margin: 0 auto;
   display: flex;
   justify-content: center;
+
+  table {
+    border-spacing: 0;
+  }
+
+  thead tr {
+    background-color: #dfdfdf;
+  }
+
+  tbody {
+    tr:hover {
+      background-color: #f0f0f0;
+    }
+
+    tr > *:not(:first-child) {
+      text-align: center;
+    }
+  }
 }
 
 /* Admin Page */

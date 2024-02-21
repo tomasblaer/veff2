@@ -4,7 +4,7 @@
   <%- include('gametable') -%>
   <div class="forms">
     <div class="admin-form">
-      <h2>Skrá Nýjan leik</h2>
+      <h2>Skrá nýjan leik</h2>
       <form action="/admin" method="post" id="adminForm">
         <% const today = new Date().toISOString().split('T')[0]; %>
         <label for="date">Dagsetning</label>
@@ -32,7 +32,7 @@
       <div id="status" style="display: none;"></div>
     </div>
     <div class="user-form">
-      <h2>Skrá Nýjan notanda</h2>
+      <h2>Skrá nýjan notanda</h2>
       <form action="/user" method="post" id="userForm">
         <label for="username">Notendanafn</label>
         <input type="text" name="username" required>
@@ -78,6 +78,8 @@
             const statusElem = form.nextElementSibling;
             handleStatus(statusElem, body, 'green');
             form.reset();
+          } else {
+            window.location.reload();
           }
       }).catch((error) => {
           console.error(error);

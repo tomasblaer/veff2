@@ -20,7 +20,7 @@ async function adminRoute(req, res) {
   const teams = await getTeams();
 
   return res.render('admin', {
-    title: 'Admin upplýsingar, mjög leynilegt',
+    title: 'Síðuumsjón',
     user,
     loggedIn,
     time: new Date().toISOString(),
@@ -40,12 +40,12 @@ async function registerGame(req, res) {
     /* eslint-disable camelcase */
     const { date, home, away, home_score, away_score } = req.body;
     await insertGame([date, home, away, home_score, away_score]);
+    // Langaði að hafa res.redirect('/admin') en það er greinilega svakalegt vesen á html post formi
+    return res.status(201).send('Leikur skráður');
 
   } catch (error) {
     return res.status(500).send('Villa við að skrá leik');
   }
-
-  return res.redirect('/admin');
 }
 
 /*
