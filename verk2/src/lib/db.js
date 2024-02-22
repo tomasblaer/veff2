@@ -1,10 +1,14 @@
 import pg from 'pg';
 import _ from 'lodash';
 import moment from 'moment';
+import {readFile} from 'fs/promises';
 
 const { DATABASE_URL: connectionString } = process.env;
 
 const db = new pg.Pool({connectionString});
+
+const SCHEMA_FILE = './sql/schema.sql';
+const DROP_SCHEMA_FILE = './sql/drop.sql';
 
 db.on('error', (err) => {
   console.error('Idle database error', err);
@@ -114,5 +118,21 @@ export async function insertUser(username, password) {
   const result = await query(sql, [username, password]);
 
   return result.rows[0];
+}
+
+export async function createSchema(schemaFile = SCHEMA_FILE) {
+  const data = await readFile(schemaFile);
+
+  return query(data.toString('utf-8'));
+}
+
+export async function dropSchema(dropFile = DROP_SCHEMA_FILE) {
+  const data = await readFile(dropFile);
+
+  return query(data.toString('utf-8'));
+}
+
+export async function end() {
+  await db.end();
 }
 

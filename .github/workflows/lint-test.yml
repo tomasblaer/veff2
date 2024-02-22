@@ -10,7 +10,7 @@ jobs:
   lint-test:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ['verk1'] }
+      matrix: { dir: ['verk1','verk2'] }
     steps:
       - uses: actions/checkout@v3
 

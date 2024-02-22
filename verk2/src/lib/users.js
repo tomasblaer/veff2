@@ -1,10 +1,3 @@
-/**
- * "Static notendagrunnur"
- * Notendur eru harðkóðaðir og ekkert hægt að breyta þeim.
- * Ef við notum notendagagnagrunn, t.d. í postgres, útfærum við leit að notendum
- * hér, ásamt því að passa upp á að lykilorð séu lögleg.
- */
-
 import bcrypt from 'bcrypt';
 import { findUserByUsername, findUserById } from './db.js';
 
