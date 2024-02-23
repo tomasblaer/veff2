@@ -7,9 +7,11 @@ import { validateGame, validateUser } from '../lib/validation.js';
 export const adminRouter = express.Router();
 
 async function indexRoute(req, res) {
+  const { status } = req.query;
   return res.render('login', {
     title: 'Innskráning',
     time: new Date().toISOString(),
+    status,
   });
 }
 
@@ -104,7 +106,7 @@ adminRouter.post(
   // Þetta notar strat að ofan til að skrá notanda inn
   passport.authenticate('local', {
     failureMessage: 'Notandanafn eða lykilorð vitlaust.',
-    failureRedirect: '/login',
+    failureRedirect: '/login?status=failed',
   }),
 
   // Ef við komumst hingað var notandi skráður inn, senda á /admin

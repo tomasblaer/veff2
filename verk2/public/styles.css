@@ -108,6 +108,11 @@ footer {
   > div {
     flex: 0 0 33.3333%;
   }
+
+  .game-date-cell, .game-cell {
+    text-align: center;
+  }
+
 }
 
 /* Staða */
@@ -140,8 +145,32 @@ footer {
 
 .admin-panel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: center;
+
+  .forms {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    form > * {
+      margin: 0.25rem 0;
+    }
+
+    form {
+      height: 300px;
+    }
+
+    input:last-of-type {
+      margin-top: auto;
+    }
+
+    #admin-form::after {
+      content: "|";
+      font-weight: bold;
+    }
+  }
 
   .games {
     width: 65vw;
@@ -157,20 +186,24 @@ footer {
     width: 2rem;
   }
 
-  label, input {
-    display: block;
-    margin: 0.5rem 0;
+  .game-date-cell {
+    text-align: center;
   }
 
   .game-cell {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 
     > a {
       height: fit-content;
       margin-right: 1rem;
       font-weight: bold;
+    }
+
+    > p {
+      min-width: 300px;
     }
 
     > a:hover {
@@ -179,10 +212,42 @@ footer {
   }
 
   .admin-form, .user-form {
-    max-width: 13.5rem;
+    min-width: 13.5rem;
+
+    > form {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   #status {
     text-wrap: wrap;
   }
+}
+
+/* Login */
+
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  margin: 0 auto;
+
+  input {
+    width: 10rem;
+  }
+
+  label {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
 }
