@@ -29,7 +29,7 @@ export default function Notepad() {
       </div>
       <motion.div
         ref={constraintsRef}
-        className="flex w-10/12 h-3/5 mx-auto my-auto justify-center "
+        className="flex w-10/12 h-3/5 mx-auto my-auto justify-center"
       >
         {notes}
       </motion.div>
