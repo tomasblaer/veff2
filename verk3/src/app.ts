@@ -1,12 +1,13 @@
+import dotenv from 'dotenv';
 import express from 'express';
-import { catchErrors } from './lib/catch-errors.js';
-import { router, bye, hello, error } from './routes/api.js';
+import { router } from './routes/api.js';
 
 const app = express();
 
+dotenv.config()
+
 app.use(express.json());
 
-app.get('/', catchErrors(hello), catchErrors(error), catchErrors(bye));
 app.use(router);
 
 const port = process.env.PORT || 3000;
