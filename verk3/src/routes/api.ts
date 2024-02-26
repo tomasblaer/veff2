@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { listTeams } from './teams.js';
+import { createTeam, getTeam, listTeams } from './teams.js';
 
 export const router = express.Router();
 
@@ -26,3 +26,5 @@ export async function index(req: Request, res: Response) {
 
 router.get('/', index);
 router.get('/teams', listTeams);
+router.post('/teams', createTeam);
+router.get('/teams/:slug', getTeam);

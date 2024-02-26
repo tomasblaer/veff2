@@ -50,7 +50,7 @@ export async function query(
   }
 }
 
-export async function getTeams() {
+export async function getTeamBySlug() {
     const result = await query('SELECT * FROM teams');
     return result?.rows;
 }
