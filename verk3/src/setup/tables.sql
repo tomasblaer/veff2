@@ -1,7 +1,7 @@
 create table if not exists public.teams (
   id serial primary key,
-  name text not null,
-  slug text not null,
+  name text not null unique,
+  slug text not null unique,
   description text
 );
 
