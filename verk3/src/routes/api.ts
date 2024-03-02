@@ -1,5 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express';
-import { createTeam, getTeam, listTeams } from './teams.js';
+import express, { NextFunction, Request, Response } from 'express';
+import { createTeam, deleteTeam, getTeam, listTeams, updateTeam } from './teams.js';
 
 export const router = express.Router();
 
@@ -28,3 +28,5 @@ router.get('/', index);
 router.get('/teams', listTeams);
 router.post('/teams', createTeam);
 router.get('/teams/:slug', getTeam);
+router.patch('/teams/:slug', updateTeam);
+router.delete('/teams/:slug', deleteTeam);

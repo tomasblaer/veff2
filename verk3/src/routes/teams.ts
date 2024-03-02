@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { getTeams, getTeamBySlug, insertTeam } from "../lib/db2.js";
+import { getTeams, getTeamBySlug, insertTeam, updateTeamBySlug, deleteTeamBySlug } from "../lib/db2.js";
 import { Prisma, teams } from "@prisma/client";
+import { validateTeam } from "../lib/validation.js";
+import slugify from "slugify";
 
 export async function listTeams(
   req: Request,
@@ -16,27 +18,76 @@ export async function listTeams(
   return res.json(teams);
 }
 
-export async function createTeam(
+export async function createTeamHandler(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  console.log(req);
-  let team: teams | null = null;
+
+  const { name, description } = req.body;
+  
+  const team: Prisma.teamsCreateInput = {
+    name,
+    description,
+    slug: slugify(name, { lower: true }),
+  };
+
+  let teamInserted: teams | null = null;
 
   try {
-    team = await insertTeam(req.body);
+    teamInserted = await insertTeam(team);
   } catch (e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      if (e.code === 'P2002') {
-        return res
-          .status(400)
-          .json({ error: 'A team with that name already exists' });
-      }
-    }
+    return next(e);
   }
 
-  return res.json(team);
+  return res.status(201).json(teamInserted);
+}
+
+export async function updateTeamHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  
+  const { slug } = req.params;
+  const { name, description } = req.body;
+
+  if (!name && !description) {
+    return next(new Error("No data to update team with, name and/or description required"));
+  }
+
+  const team: Prisma.teamsUpdateInput = {};
+  if (name) {
+    team.name = name;
+    team.slug = slugify(name, { lower: true });
+  }
+  if (description) {
+    team.description = description;
+  }
+
+  let updatedTeam: teams | null = null;
+
+  try {
+    updatedTeam = await updateTeamBySlug(slug, team);
+  } catch (e) {
+    return next(e);
+  }
+
+  return res.json(updatedTeam);
+}
+
+export async function deleteTeam(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { slug } = req.params;
+
+  let deletedTeam: teams | null = null;
+
+  deletedTeam = await deleteTeamBySlug(slug);
+
+  return res.json({deleted_team: deletedTeam});
 }
 
 export async function getTeam(
@@ -49,8 +100,21 @@ export async function getTeam(
   const team = await getTeamBySlug(slug);
 
   if (!team) {
-    return next(new Error(`unable to get team ${slug}`));
+    return next();
   }
 
   return res.json(team);
 }
+
+
+/* Exports w/ middleware */
+
+export const createTeam = [
+  validateTeam,
+  createTeamHandler
+].flat();
+
+export const updateTeam = [
+  validateTeam,
+  updateTeamHandler
+].flat();

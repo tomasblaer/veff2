@@ -18,8 +18,9 @@ model teams {
   name        String   @unique
   slug        String   @unique
   description String?
-  homeTeam    games[]  @relation("homeTeam")
-  awayTeam    games[]  @relation("awayTeam")
+  home_team   games[]  @relation("home_team")
+  away_team   games[]  @relation("away_team")
+  
 }
 
 model games {
@@ -27,8 +28,8 @@ model games {
   date       DateTime
   home       Int
   away       Int
-  homeScore  Int
-  awayScore  Int
-  homeTeam   teams    @relation("homeTeam", fields: [home], references: [id])
-  awayTeam   teams    @relation("awayTeam", fields: [away], references: [id])
+  homeScore  Int      @map("home_score")
+  awayScore  Int      @map("away_score")
+  home_team  teams    @relation("home_team", fields: [home], references: [id], onDelete: Cascade)
+  away_team  teams    @relation("away_team", fields: [away], references: [id], onDelete: Cascade)
 }
