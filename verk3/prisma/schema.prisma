@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -14,22 +9,21 @@ datasource db {
 }
 
 model teams {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  slug        String   @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  slug        String  @unique
   description String?
-  home_team   games[]  @relation("home_team")
-  away_team   games[]  @relation("away_team")
-  
+  away_team   games[] @relation("away_team")
+  home_team   games[] @relation("home_team")
 }
 
 model games {
-  id         Int      @id @default(autoincrement())
-  date       DateTime
-  home       Int
-  away       Int
-  homeScore  Int      @map("home_score")
-  awayScore  Int      @map("away_score")
-  home_team  teams    @relation("home_team", fields: [home], references: [id], onDelete: Cascade)
-  away_team  teams    @relation("away_team", fields: [away], references: [id], onDelete: Cascade)
+  id        Int      @id @default(autoincrement())
+  date      DateTime @db.Timestamp(6)
+  home      Int
+  away      Int
+  homeScore Int      @map("home_score")
+  awayScore Int      @map("away_score")
+  away_team teams    @relation("away_team", fields: [away], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_away")
+  home_team teams    @relation("home_team", fields: [home], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_home")
 }

@@ -1,56 +1,90 @@
-import pg from 'pg';
+import { PrismaClient, Prisma, teams, games } from "@prisma/client";
 
-let savedPool: pg.Pool | undefined;
+const prisma = new PrismaClient({
+  errorFormat: "minimal",
+});
 
-export function getPool(): pg.Pool {
-  if (savedPool) {
-    return savedPool;
-  }
+/* Teams */
 
-  const { DATABASE_URL: connectionString } = process.env;
-  if (!connectionString) {
-    console.error('vantar DATABASE_URL í .env');
-    throw new Error('missing DATABASE_URL');
-  }
+export async function getTeams(): Promise<teams[] | null> {
+  const teams = await prisma.teams.findMany();
+  return teams ?? null;
+}
 
-  savedPool = new pg.Pool({ connectionString });
+export async function getTeamBySlug(slug: string): Promise<teams | null> {
+  const team = await prisma.teams.findUnique({
+    where: { slug },
+  });
+  return team ?? null;
+}
 
-  savedPool.on('error', (err) => {
-    console.error('Villa í tengingu við gagnagrunn, forrit hættir', err);
-    throw new Error('error in db connection');
+export async function insertTeam(
+  data: Prisma.teamsCreateInput
+): Promise<teams> {
+  const team = await prisma.teams.create({ data });
+
+  return team ?? null;
+}
+
+export async function updateTeamBySlug(
+  slug: string,
+  data: Prisma.teamsUpdateInput
+): Promise<teams | null> {
+  const team = await prisma.teams.update({
+    where: { slug },
+    data,
   });
 
-  return savedPool;
+  return team ?? null;
 }
 
-export async function query(
-  q: string,
-  values: Array<unknown> = [],
-  silent = false,
-) {
-  const pool = getPool();
+export async function deleteTeamBySlug(slug: string): Promise<teams | null> {
+  const team = await prisma.teams.delete({
+    where: { slug },
+  });
 
-  let client;
-  try {
-    client = await pool.connect();
-  } catch (e) {
-    if (!silent) console.error('unable to get client from pool', e);
-    return null;
-  }
-
-  try {
-    const result = await client.query(q, values);
-    return result;
-  } catch (e) {
-    if (!silent) console.error('unable to query', e);
-    if (!silent) console.info(q, values);
-    return null;
-  } finally {
-    client.release();
-  }
+  return team ?? null;
 }
 
-export async function getTeamBySlug() {
-    const result = await query('SELECT * FROM teams');
-    return result?.rows;
+/* Games */
+
+export async function getGames(): Promise<games[] | null> {
+  const games = await prisma.games.findMany();
+  return games ?? null;
+}
+
+export async function insertGame(
+  data: Prisma.gamesUncheckedCreateInput
+): Promise<games | null> {
+  const game = await prisma.games.create({ data });
+
+  return game ?? null;
+}
+
+export async function getGameById(id: number): Promise<games | null> {
+  const game = await prisma.games.findUnique({
+    where: { id },
+  });
+
+  return game ?? null;
+}
+
+export async function updateGameById(
+  id: number,
+  data: Prisma.gamesUpdateInput
+): Promise<games | null> {
+  const game = await prisma.games.update({
+    where: { id },
+    data,
+  });
+
+  return game ?? null;
+}
+
+export async function deleteGameById(id: number): Promise<games | null> {
+  const game = await prisma.games.delete({
+    where: { id },
+  });
+
+  return game ?? null;
 }

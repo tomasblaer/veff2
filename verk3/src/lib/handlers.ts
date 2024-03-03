@@ -1,7 +1,11 @@
 import { Prisma } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
-export function handle404(req: Request, res: Response, next: NextFunction): void {
+export function handle404(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
   res.status(404).json({ error: "Not found" });
 }
 
@@ -11,13 +15,27 @@ export function handleError(
   res: Response,
   next: NextFunction
 ): Response {
-
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
-    const postType: string = req.originalUrl.includes('team') ? 'team' : 'game';
+    console.log("errorfound");
+    const actionType: string = req.originalUrl.includes("team")
+      ? "team"
+      : "game";
     if (err.code === "P2002") {
-      return res.status(400).json({ error: `error executing, ${postType} already exists` });
+      // Unique constraint failed in team creation / update
+      return res
+        .status(400)
+        .json({ error: `error executing, ${actionType} already exists` });
     } else if (err.code === "P2025") {
-      return res.status(400).json({ error: `error executing, ${postType} not found` });
+      console.log("myplacebla");
+      // Record to delete / update not found
+      return res
+        .status(400)
+        .json({ error: `error executing, ${actionType} not found` });
+    } else if (err.code === "P2003") {
+      // Foreign key constraint failed in game creation / update
+      return res
+        .status(400)
+        .json({ error: `error executing, both teams must be valid` });
     }
   }
 
@@ -30,8 +48,11 @@ export function handleError(
     return res.status(400).json({ error: "invalid json" });
   }
 
-  if (err.message.includes("no data")) {
-    return res.status(400).json({ error: err.message });
+  if (err.message.includes("Bad Request:")) {
+    // Ljott string hack :(
+    return res
+      .status(400)
+      .json({ error: err.message.replace("Bad Request:", "") });
   }
 
   console.error("error handling route", err);

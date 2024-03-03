@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
-import express, { Request, Response, NextFunction} from 'express';
-import { router } from './routes/api.js';
-import { handle404, handleError } from './lib/handlers.js';
+import dotenv from "dotenv";
+import express, { Request, Response, NextFunction } from "express";
+import { router } from "./routes/api.js";
+import { handle404, handleError } from "./lib/handlers.js";
 
 const app = express();
 
-dotenv.config()
+dotenv.config();
 
 app.use(express.json());
 

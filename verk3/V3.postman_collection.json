@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "c9714aa9-3549-4395-9692-dae9f3346374",
+		"name": "V3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33221403"
+	},
+	"item": [
+		{
+			"name": "get all teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/teams",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get team by slug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/teams/boltalidid",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"boltalidid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create team",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"customTeam\",\n    \"description\": \"customTeamDescription\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update team by slug",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"newDesc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/customteam",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"customteam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete team by slug",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/boltalidid",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"boltalidid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/games/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"games",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get game by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/games/12",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"games",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"home\": 5,\r\n    \"away\": 2,\r\n    \"homeScore\": 0,\r\n    \"awayScore\": 2,\r\n    \"date\": \"2024-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/games/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"games",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update game by id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"home\": 3,\r\n    \"away\": 2,\r\n    \"homeScore\": 0,\r\n    \"awayScore\": 2,\r\n    \"date\": \"2024-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/games/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"games",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete game by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/games/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"games",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000"
+		}
+	]
+}
