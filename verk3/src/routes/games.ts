@@ -125,4 +125,5 @@ export async function deleteGame(
 /* Exports w/ middleware */
 
 export const createGame = [validateGame, createGameHandler].flat();
+
 export const updateGame = [validateGame, updateGameHandler].flat();

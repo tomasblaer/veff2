@@ -13,8 +13,12 @@ import {
   listGames,
   updateGame,
 } from "./games.js";
+import { generateToken, getSecretAssert } from "../lib/authorization.js";
+import { expressjwt } from "express-jwt";
 
 export const router = express.Router();
+
+router.use(expressjwt({ secret: getSecretAssert(), algorithms: ["HS256"] }).unless({ path: ["/generateToken"] }));
 
 export async function index(req: Request, res: Response) {
   return res.json([
@@ -38,6 +42,8 @@ export async function index(req: Request, res: Response) {
 }
 
 router.get("/", index);
+
+router.post("/generateToken", generateToken);
 
 /* Team routes */
 
