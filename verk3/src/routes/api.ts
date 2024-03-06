@@ -18,7 +18,7 @@ import { expressjwt } from "express-jwt";
 
 export const router = express.Router();
 
-router.use(expressjwt({ secret: getSecretAssert(), algorithms: ["HS256"] }).unless({ path: ["/generateToken"] }));
+router.use(expressjwt({ secret: getSecretAssert(), algorithms: ["HS256"] }).unless({ path: ["/auth", "/"] }));
 
 export async function index(req: Request, res: Response) {
   return res.json([
@@ -43,7 +43,7 @@ export async function index(req: Request, res: Response) {
 
 router.get("/", index);
 
-router.post("/generateToken", generateToken);
+router.post("/auth", generateToken);
 
 /* Team routes */
 
