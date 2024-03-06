@@ -26,7 +26,6 @@ export function handleError(
         .status(400)
         .json({ error: `error executing, ${actionType} already exists` });
     } else if (err.code === "P2025") {
-      console.log("myplacebla");
       // Record to delete / update not found
       return res
         .status(400)
@@ -46,6 +45,10 @@ export function handleError(
     "body" in err
   ) {
     return res.status(400).json({ error: "invalid json" });
+  }
+
+  if (err.name === 'UnauthorizedError') {
+    return res.status(401).json({ error: err.message });
   }
 
   if (err.message.includes("Bad Request:")) {

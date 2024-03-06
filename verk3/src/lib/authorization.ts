@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 export function generateToken(req: Request, res: Response, next: NextFunction) {
-  dotenv.config();
 
   const secret = getSecretAssert();
 
