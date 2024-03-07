@@ -5,14 +5,19 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node --loader ts-node/esm ./src/app.ts"
+    "start": "node --loader ts-node/esm ./src/app.ts",
+    "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' NODE_NO_WARNINGS=1 jest ./*.test.ts --setupFiles dotenv/config",
+    "test:coverage": "cross-env NODE_OPTIONS='--experimental-vm-modules' NODE_NO_WARNINGS=1 jest ./*.test.ts --coverage",
+    "lint": "eslint ./src/**/*.ts"
   },
   "keywords": [],
   "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jest/globals": "^29.7.0",
     "@prisma/client": "^5.10.2",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-jwt": "^8.4.1",
@@ -29,7 +34,17 @@
     "@types/pg": "^8.11.1",
     "eslint": "^8.57.0",
     "nodemon": "^3.0.3",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.1.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/lib/**"
+    ],
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "^(\\.\\.?\\/.+)\\.js$": "$1"
+    }
   }
 }

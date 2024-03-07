@@ -3,7 +3,6 @@ import express, { Request, Response, NextFunction } from "express";
 import { router } from "./routes/api.js";
 import { handle404, handleError } from "./lib/handlers.js";
 import { cors } from "./lib/cors.js";
-import { expressjwt } from "express-jwt";
 
 const app = express();
 

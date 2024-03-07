@@ -6,7 +6,7 @@ export async function validateTeam(
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void | Response<any, Record<string, any>>> {
+): Promise<void | Response> {
   const reqType = req.method;
   if (reqType === "POST") {
     await checkSchema(createTeamSchema).run(req);
@@ -32,7 +32,7 @@ export async function validateGame(
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void | Response<any, Record<string, any>>> {
+): Promise<void | Response> {
   const reqType = req.method;
   if (reqType === "POST") {
     await checkSchema(createGameSchema).run(req);

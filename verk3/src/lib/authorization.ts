@@ -7,7 +7,7 @@ export function generateToken(req: Request, res: Response, next: NextFunction) {
 
   const username = req.body.username;
   if (username === undefined) {
-    return res.status(400).json({ error: 'Username is required' });
+    return next(new Error('Bad Request:username is not defined'));
   }
 
   const token = jwt.sign( { username: username }, secret, { expiresIn: '30m' });

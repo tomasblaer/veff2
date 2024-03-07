@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export function handle404(
   req: Request,
   res: Response,
