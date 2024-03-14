@@ -1,6 +1,6 @@
-import { memo, useState } from "react";
-import { GameCellProps } from "@/app/lib/types";
-import { GameCellExpandable } from "./gamecell-expandable";
+
+import { GameCellProps } from "@/lib/types";
+import { GameCellExpandable } from "./gamecellExpandable";
 
 function GenericEditGameCell({ data }: GameCellProps) {
   return <></>;

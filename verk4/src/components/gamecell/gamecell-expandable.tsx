@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { GameCellProps } from "@/app/lib/types";
+import { GameCellProps } from "@/lib/types";
 
 export function GameCellExpandable({ data }: GameCellProps) {
   const formattedDate = new Date(data.date).toDateString();

@@ -25,3 +25,22 @@ export type GameCellProps = {
   };
   expandable?: boolean;
 };
+
+export type ViewProps = {
+  gameData?: {
+    id: number;
+    home: string | number;
+    away: string | number;
+    homeScore: number;
+    awayScore: number;
+    date: string;
+  };
+  teamData?: {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+  };
+  type: 'game' | 'team';
+  expandable: boolean;
+};
