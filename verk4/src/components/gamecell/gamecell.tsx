@@ -1,6 +1,6 @@
 
 import { GameCellProps } from "@/lib/types";
-import { GameCellExpandable } from "./gamecellExpandable";
+import { GameCellExpandable } from "./gamecell-expandable";
 
 function GenericEditGameCell({ data }: GameCellProps) {
   return <></>;

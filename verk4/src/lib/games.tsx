@@ -1,3 +1,4 @@
+import moment from "moment";
 import { fetchWithToken } from "./fetch";
 import { getTeams } from "./teams";
 import { Game, Team } from "./types";
@@ -46,4 +47,21 @@ export async function gamesTeamNameMapper(games: Array<Game>) {
 
     return game;
   });
+}
+
+export async function getAllGameDates(sorted = false) {
+  const games = await getGames();
+  const dates: string[] = []
+  games.forEach((game: Game) => {
+    const date = moment(game.date).format("YYYY-MM-DD");
+    if (!dates.includes(date.toString())) {
+      dates.push(date.toString());
+    }
+  });
+  if (sorted) {
+    dates.sort((a, b) => {
+      return a > b ? 1 : -1;
+    });
+  }
+  return dates;
 }
