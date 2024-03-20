@@ -1,4 +1,4 @@
-import GameCell from "@/components/gamecell/gamecell";
+import GameCard from "@/components/cards/game-card";
 import { getGame, getGames } from "@/lib/games";
 import { Game } from "@/lib/types";
 
@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { id: number } }) {
 
   return (
     <main className="items-center w-screen h-screen flex justify-center">
-      <GameCell data={game} expandable={false} />
+      <GameCard data={game} />
     </main>
   );
 }

@@ -1,9 +1,8 @@
 import { Game, Team } from "@/lib/types";
 import { ReactNode } from "react";
-import { GameView } from "../view/game-view";
-import { TeamView } from "../view/team-view";
-import { sortGamesByDate } from "@/lib/util";
-import moment from "moment";
+import { GameView } from "./game-cell";
+import { TeamView } from "./view-cell";
+import { sortGamesByDate } from "@/lib/utils";
 
 type ViewListProps = {
   type: "game" | "team";

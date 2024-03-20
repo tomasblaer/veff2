@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getAllGameDates, getGames } from "../lib/games";
-import { FlipView } from "@/components/flip.tsx/flip";
-import { Suspense } from "react";
+import FlipView from "@/components/flip/flip";
+
 
 export const metadata: Metadata = {
   title: "Leikir",
@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <main className="flex justify-center">
-      <FlipView headers={dates} data={games} />
+      <FlipView headers={dates} data={games} headerKey={"date"} />
     </main>
   );
 }
