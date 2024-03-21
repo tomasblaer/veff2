@@ -1,7 +1,9 @@
 export type Game = {
   id: number;
   home: number;
+  homeName?: string;
   away: number;
+  awayName?: string;
   homeScore: number;
   awayScore: number;
   date: string;

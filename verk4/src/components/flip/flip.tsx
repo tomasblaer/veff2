@@ -18,20 +18,17 @@ export default function FlipView({headers, data, headerKey}: FlipViewProps) {
     const headerData = data.filter((game) => {
       return moment(game[headerKey]).format("YYYY-MM-DD").toString() === header;
     });
-
     return headerData;
   }, []);
 
   useEffect(() => {
-    console.log(headerKey);
-    console.log(headers);
     setSelectedData(findHeaderData(data, headers[headerIndex], headerKey));
   }, [data, findHeaderData, headerIndex, headerKey, headers]);
   
   
   return (
     <div className="w-1/3 pt-20">
-      <div className="flex gap-4 justify-center bg-gray-300 rounded-t-md">
+      <div className="flex gap-4 justify-center bg-gray-300 dark:bg-slate-800 rounded-t-md">
         <button
           className="w-1/3 text-left pl-2"
           onClick={() => setHeaderIndex(headerIndex === 0 ? headerIndex : headerIndex-1)}
@@ -48,8 +45,8 @@ export default function FlipView({headers, data, headerKey}: FlipViewProps) {
           &gt;
         </button>
       </div>
-      <div className="flex flex-col bg-gray-200 rounded-b-md">
-        <GameList data={selectedData as Game[]} /> 
+      <div className="flex flex-col bg-gray-200 rounded-b-md dark:bg-gray-800">
+        <GameList data={selectedData!} /> 
       </div>
     </div>
   );

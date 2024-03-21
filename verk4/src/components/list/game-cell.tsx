@@ -1,23 +1,23 @@
 import { Game } from "@/lib/types";
 import Link from "next/link";
 
-type GameViewProps = {
+type GameCellProps = {
   data: Game;
 };
 
-export function GameView({ data }: GameViewProps) {
-  const { id, home, away, homeScore, awayScore } = data;
+export function GameCell({ data }: GameCellProps) {
+  const { id, homeName, awayName, homeScore, awayScore } = data;
   const href  = `/games/${id}`;
   return (
-    <Link href={href} className="grid grid-cols-3 hover:bg-gray-300 hover:rounded-md">
+    <Link href={href} className="grid grid-cols-3 hover:bg-gray-300 dark:hover:bg-slate-900 hover:rounded-md">
       <div className="col-span-1 text-right">
-        {home}
+        {homeName}
       </div>
       <div className="col-span-1 text-center">
         {homeScore} : {awayScore}     
       </div>
       <div className="col-span-1 text-left">
-        {away}
+        {awayName}
       </div>
     </Link>
   );

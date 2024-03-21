@@ -1,5 +1,6 @@
-import GameCard from "@/components/cards/game-card";
+import GameCard from "@/components/cards/gamecard/game-card";
 import { getGame, getGames } from "@/lib/games";
+import { getTeams } from "@/lib/teams";
 import { Game } from "@/lib/types";
 
 export async function generateStaticParams() {
@@ -11,10 +12,11 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { id: number } }) {
   const game = await getGame(params.id, true);
+  const teams = await getTeams();
 
   return (
     <main className="items-center w-screen h-screen flex justify-center">
-      <GameCard data={game} />
+      <GameCard data={game} teams={teams} />
     </main>
   );
 }
