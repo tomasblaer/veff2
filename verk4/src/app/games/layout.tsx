@@ -1,12 +1,12 @@
 export default function GameLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <section>
-            <nav></nav>
-            {children}
-        </section>
-    )
+  return (
+    <section>
+      <nav></nav>
+      {children}
+    </section>
+  );
 }

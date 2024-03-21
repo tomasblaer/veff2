@@ -6,19 +6,26 @@ import { getTeams } from "./teams";
 import { Game, Team } from "./types";
 import { revalidateTag } from "next/cache";
 
-export async function getGames(mapTeamNames = false): Promise<Array<Game>> {
+export async function getGames(mapTeamNames = false): Promise<Array<Game> | null> {
   const res = await fetchWithToken(`${process.env.API_URL}/games`, { next: { tags: ["games"] } });
   let json = await res.json();
-  if (mapTeamNames) {
+  if (json.hasOwnProperty("error")) {
+    return null;
+  }
+
+  if (mapTeamNames && !json.hasOwnProperty("error")) {
     json = await gamesTeamNameMapper(json);
   }
   return json;
 }
 
-export async function getGame(id: number, mapTeamNames = false) {
-  // const res = await fetchWithToken(`${process.env.API_URL}/games/${id}`, { next: { tags: ["games"] } });
+export async function getGame(id: number, mapTeamNames = false): Promise<Game | null> {
   const res = await fetchWithToken(`${process.env.API_URL}/games/${id}`, { next: { tags: ["games"] } });
   let json = await res.json();
+  if (json.hasOwnProperty("error")) {
+    return null;
+  }
+
   if (mapTeamNames) {
     json = await gameTeamNameMapper(json);
   }
@@ -56,7 +63,7 @@ export async function gamesTeamNameMapper(games: Array<Game>) {
 export async function getAllGameDates(sorted = false) {
   const games = await getGames();
   const dates: string[] = []
-  games.forEach((game: Game) => {
+  games!.forEach((game: Game) => {
     const date = moment(game.date).format("YYYY-MM-DD");
     if (!dates.includes(date.toString())) {
       dates.push(date.toString());

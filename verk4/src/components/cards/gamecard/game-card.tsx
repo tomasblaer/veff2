@@ -41,21 +41,11 @@ export default function GameCard({ data, teams }: GameCardProps) {
               {new Date(data.date).toDateString()}
             </h1>
           </div>
-          <Link
-            href={`teams/${data.home}`}
-            className="row-start-2 col-start-1 h-fit"
-          >
-            <h1 className="text-right text-xl">{data.homeName}</h1>
-          </Link>
+          <h1 className="row-start-2 col-start-1 text-right text-xl">{data.homeName}</h1>
           <h1 className="row-start-2 col-start-2 text-center text-xl">
             {data.homeScore} : {data.awayScore}
           </h1>
-          <Link
-            href={`teams/${data.away}`}
-            className="row-start-2 col-start-3 h-fit"
-          >
-            <h1 className="text-left text-xl">{data.awayName}</h1>
-          </Link>
+          <h1 className="row-start-2 col-start-3 text-left text-xl">{data.awayName}</h1>
         </>
       ) : (
         <GameCardEditing data={data} teams={teams} onEditClick={onEditClick} />

@@ -1,8 +1,13 @@
+import FlipView from "@/components/flip/flip";
+import { getAllGameDates, getGames } from "@/lib/games";
 
-export default function Page() {
+export default async function GamePage() {
+  const games = await getGames(true);
+  const dates = await getAllGameDates(true);
+
   return (
-    <main className="items-center w-screen h-screen flex justify-center">
-      <h1>At games</h1>
+    <main className="flex justify-center">
+      <FlipView headers={dates} data={games!} headerKey={"date"} />
     </main>
   );
 }

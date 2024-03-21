@@ -43,6 +43,6 @@ export type ViewProps = {
     slug: string;
     description: string;
   };
-  type: 'game' | 'team';
+  type: "game" | "team";
   expandable: boolean;
 };
