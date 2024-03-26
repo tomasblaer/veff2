@@ -7,18 +7,17 @@ type GameCellProps = {
 
 export function GameCell({ data }: GameCellProps) {
   const { id, homeName, awayName, homeScore, awayScore } = data;
-  const href  = `/games/${id}`;
+  const href = `/games/${id}`;
   return (
-    <Link href={href} className="grid grid-cols-3 hover:bg-gray-300 dark:hover:bg-slate-900 hover:rounded-md">
-      <div className="col-span-1 text-right">
-        {homeName}
-      </div>
+    <Link
+      href={href}
+      className="grid grid-cols-3 hover:bg-gray-300 dark:hover:bg-slate-900 hover:rounded-md"
+    >
+      <div className="col-span-1 text-right">{homeName}</div>
       <div className="col-span-1 text-center">
-        {homeScore} : {awayScore}     
+        {homeScore} : {awayScore}
       </div>
-      <div className="col-span-1 text-left">
-        {awayName}
-      </div>
+      <div className="col-span-1 text-left">{awayName}</div>
     </Link>
   );
 }

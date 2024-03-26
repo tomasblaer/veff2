@@ -5,7 +5,7 @@ import { Game } from "@/lib/types";
 
 export async function generateStaticParams() {
   const games = await getGames();
-  return games.map((game: Game) => ({
+  return games!.map((game: Game) => ({
     id: game.id.toString(),
   }));
 }
@@ -13,6 +13,14 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { id: number } }) {
   const game = await getGame(params.id, true);
   const teams = await getTeams();
+
+  if (!game) {
+    return (
+      <main className="items-center w-screen h-screen flex justify-center">
+        <h1 className="text-xl font-bold">404, Leikur fannst ekki</h1>
+      </main>
+    );
+  }
 
   return (
     <main className="items-center w-screen h-screen flex justify-center">

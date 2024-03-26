@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import Link from "next/link";
 import ThemeSwitch from "./theme-switch";
 
 export default function Header() {
-
   return (
     <header className="flex justify-between items-center p-4 border-b-gray-200 border">
       <Link href="/">
@@ -12,10 +11,7 @@ export default function Header() {
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <Link href="/">Leikir</Link>
-          </li>
-          <li>
-            <Link href="/teams">Lið</Link>
+            <Link href="/games">Leikir</Link>
           </li>
           <li>
             <ThemeSwitch />

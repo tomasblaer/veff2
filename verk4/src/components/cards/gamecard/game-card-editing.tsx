@@ -24,7 +24,7 @@ import { deleteGame, updateGame } from "@/lib/games";
 import { useRouter } from "next/navigation";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useTheme } from "next-themes";
-import { revalidateTag } from "next/cache";
+import { toast } from "react-hot-toast";
 
 type GameCardEditingProps = {
   data: Game;
@@ -72,7 +72,7 @@ export default function GameCardEditing({
     dispatch({ variable: "awayName", value: data.awayName });
     dispatch({ variable: "awayScore", value: data.awayScore });
     dispatch({ variable: "date", value: new Date(data.date) });
-  }, []);
+  }, [data]);
 
   const onUpdateGame = useCallback(async () => {
     if (submitting) return;
@@ -80,8 +80,21 @@ export default function GameCardEditing({
 
     await updateGame(state)
       .then((res) => {
-        if (res.hasOwnProperty("error") | res.hasOwnProperty("errors")) {
-          console.error("Error updating game", res);
+        if (res.hasOwnProperty("error")) {
+          toast.error(`Villa við að uppfæra leik: ${res.error}`, {
+            duration: 3000,
+          });
+        } else if (res.hasOwnProperty("errors")) {
+          // Messaði þessu eitthvað pinu upp í api-inu
+          toast.error(`Villa við að uppfæra leik: ${res.errors.length > 1 ? res.errors.join() : res.errors[0]}`, {
+            duration: 3000,
+          });
+        } else {
+          router.refresh();
+
+          setTimeout(() => {
+            onEditClick();
+          }, 500); // sma forced lag herna
         }
       })
       .catch((err) => {
@@ -91,18 +104,20 @@ export default function GameCardEditing({
         setSubmitting(false);
       });
 
-    router.refresh();
-
-    setTimeout(() => {
-      onEditClick();
-    }, 500); // sma forced lag herna
   }, [onEditClick, router, state, submitting]);
 
   const onDeleteGame = useCallback(async () => {
     await deleteGame(data.id)
       .then((res) => {
-        if (res.hasOwnProperty("error") | res.hasOwnProperty("errors")) {
-          console.error("Error deleting game", res);
+        if (res.hasOwnProperty("error")) {
+          toast.error(`Villa við að uppfæra leik: ${res.error}`, {
+            duration: 3000,
+          });
+        } else if (res.hasOwnProperty("errors")) {
+          // Messaði þessu eitthvað pinu upp í api-inu
+          toast.error(`Villa við að uppfæra leik: ${res.errors.length > 1 ? res.errors.join() : res.errors[0]}`, {
+            duration: 3000,
+          });
         } else {
           router.push("/");
         }
@@ -156,6 +171,7 @@ export default function GameCardEditing({
       <div className="row-start-4">
         <Label htmlFor="homeScore">Mörk</Label>
         <Input
+          type="number"
           onInput={(e) =>
             dispatch({
               variable: "homeScore",
@@ -225,6 +241,7 @@ export default function GameCardEditing({
       <div className="row-start-4 col-start-3">
         <Label htmlFor="awayScore">Mörk</Label>
         <Input
+          type="number"
           onInput={(e) =>
             dispatch({
               variable: "awayScore",
