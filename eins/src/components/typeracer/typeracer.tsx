@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../ui/button";
 
 type TypeRacerProps = {
@@ -11,8 +11,10 @@ type TypeRacerProps = {
 
 export default function TypeRacerCore({timeAmount, started}: TypeRacerProps) {
 
+  const gameRef = useRef<HTMLDivElement>(null);
   const [time, setTime] = useState<number>(timeAmount);
   const [words, setWords] = useState<string[]>([]);
+  const [activeWordIndex, setActiveWordIndex] = useState<number>(0);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -38,36 +40,32 @@ export default function TypeRacerCore({timeAmount, started}: TypeRacerProps) {
     setTime(timeAmount);
   }, [timeAmount]);
 
-  const wordsStringified = useMemo(() => words.join(" "), [words]);
-
-  const gameWords = useMemo(() => {
-    return wordsStringified.split("").map((letter, index) => {
-      if (letter === ' ') {
-        return <span className="font-bold" key={index}>&nbsp;</span>;
-      }
-      if (index === activeIndex) {
-        return <span key={index} className="text-yellow-700 font-bold">{letter}</span>;
-      }
-      return <span key={index} className="font-bold">{letter}</span>;
-    });
-
-  }, [wordsStringified, activeIndex]);
+  const wordsMapped = useMemo(() => words.map((word, wordIndex) => {
+    const wordSpans = word.split('').map((letter, index) => (
+      <span key={index} className={index === activeIndex && wordIndex === activeWordIndex ? 'text-red-500' : ''}>{letter}</span>
+    ));
+    return <div key={wordIndex} className="flex px-1">{wordSpans}</div>;
+  }), [activeIndex, activeWordIndex, words]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    console.log(e.key, wordsStringified[activeIndex]);
-    if (e.key === wordsStringified[activeIndex]) {
-      console.log('passed');
+    if (e.key === words[activeWordIndex][activeIndex]) {
+      if (activeIndex + 1 === words[activeWordIndex].length) {
+        setActiveWordIndex((prev) => prev + 1);
+        setActiveIndex(0);
+        return;
+      }
       setActiveIndex((prev) => prev + 1);
     }
-  }, [activeIndex, wordsStringified]);
+    console.log(activeWordIndex, activeIndex);
+  }, [activeIndex, activeWordIndex, words]);
   
   return (
-    <div tabIndex={0} className="flex flex-col p-20" onKeyDown={(e) => handleKeyDown(e)}>
+    <div tabIndex={0} ref={gameRef} className="flex flex-col p-20 max-w-screen-xl outline-none" onKeyDown={(e) => handleKeyDown(e)}>
       <div className="">
         {time}
       </div>
-      <div className="flex">
-        {started && gameWords}
+      <div className="flex flex-wrap">
+        {wordsMapped}
       </div>
     </div>
   );
