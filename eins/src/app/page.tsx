@@ -3,7 +3,9 @@ import TypeRacer from "@/components/typeracer/typeracer-wrapper";
 export default function Home() {
   return (
     <main className="flex">
-      <TypeRacer />
+      <h1>
+        Blablabla
+      </h1>
     </main>
   );
 }

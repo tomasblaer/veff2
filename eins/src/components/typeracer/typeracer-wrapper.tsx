@@ -10,14 +10,17 @@ export default function TypeRacer() {
   const [time, setTime] = useState<number>(30);
   const [started, setStarted] = useState<boolean>(false);
 
-
   return (
     <div className="flex flex-col">
-      <div className="flex gap-3">
-        <Input className={cn("w-fit")} type="number" value={time} onChange={(e) => setTime(parseInt(e.target.value))} />
-        <Button onClick={() => setStarted(true)}>Start</Button>
-      </div>
-      <TypeRacerCore timeAmount={time} started={started} />
+      { !started && (
+        <div className="flex gap-3">
+          <Input className={cn("w-fit")} type="number" value={time} onChange={(e) => setTime(parseInt(e.target.value))} />
+          <Button onClick={() => setStarted(true)}>Start</Button>
+        </div>
+      )}
+      { started && (
+        <TypeRacerCore timeAmount={time} />
+      )}
     </div>
   );
 }
