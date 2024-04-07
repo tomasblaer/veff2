@@ -31,20 +31,20 @@ export default function NavMenu() {
                       ritleikir
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                      Hýstu nýjan ritleik eða tengstu hýstum ritleik með vinum,
-                      markmiðið er að klára að skrifa texta á systa tímanum.
+                      Vilt þú búa til nýjan ritleik, tengjast ritleik hjá vini eða
+                      æfa þig í ritleik alveg sjálfur?
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Hýsa leik">
-                Hýsa nýjan ritleik.
+              <ListItem href="/#" title="Hýsa leik">
+                Hýstu nýjan ritleik. - Multiplayer
               </ListItem>
-              <ListItem href="/docs/installation" title="Tengjast leik">
-                Tengjast ritleik sem búið er að hýsa
+              <ListItem href="/#" title="Tengjast leik">
+                Tengstu ritleik sem búið er að hýsa með kóða.
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
+              <ListItem href="/type" title="Æfing">
+                Æfðu þig í ritleik - Single player
               </ListItem>
             </ul>
           </NavigationMenuContent>
