@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Einstaklingsverkefni - Vefforritun 2 2024
+## Tómas Blær Guðmundsson - tbg16@hi.is
 
-## Getting Started
+**Ath, ég veiktist illa á meðan að verkefnavinnunni stóð og er að vonast til
+þess að fá smá miskun frá þeim sem eru að fara yfir ef hlutir eru ennþá svolítið WIP.**
 
-First, run the development server:
+### Typeracer-esque síða unnin í Next.js með frumskrifuðum typeracer leik.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Síðan er hýst á vercel [hér](https://typeracer-cyan.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Eins og er er bara singleplayer typeracer leikur á síðunni, en hann nýtir
+* [Framer motion](https://www.npmjs.com/package/framer-motion) pakkann í cursorinn
+* [Random-word API](https://random-word-api.herokuapp.com/word?number=100) í að sækja orð fyrir leikinn
+* [shadcn/ui](https://ui.shadcn.com/) í UI components fyrir headerinn o.fl.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Planið er svo að setja upp virkni fyrir CRUD aðgerðir í route handlerum með [Prisma](https://www.prisma.io/), en þær aðgerðir eiga að nýtast í leaderboard, users og mögulega rooms þar sem að fólk getur spilað á móti hvoru öðru, (ég er að skoða [Socket.IO](https://socket.io/) fyrir möguleika á multiplayer-virkni)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
