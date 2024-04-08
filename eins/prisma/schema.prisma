@@ -1,0 +1,14 @@
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model scores {
+  id        Int      @id @default(autoincrement())
+  name      String
+  wpm       Int
+  accuracy  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

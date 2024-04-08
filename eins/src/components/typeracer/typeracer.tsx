@@ -18,6 +18,7 @@ type TypeRacerGame = {
     wordIndex: number;
     letterIndex: number;
   }[];
+  playing: boolean;
 };
 
 
@@ -34,6 +35,7 @@ export default function TypeRacerCore({timeAmount}: TypeRacerProps) {
     activeIndex: 0,
     atSpace: false,
     typos: [],
+    playing: false,
   });
 
   const { activeWordIndex, activeIndex, atSpace, words, typos } = game;
